@@ -9,6 +9,6 @@ export const options = {
 
 // 10 * 20 = 200 request to get/pedido in 40 seconds
 export default function () {
-  http.get(`${EKSHOST}:8000/v1/usuario/`);
+  http.get(`${EKSHOST}:8000/v1/pedido/`);
   sleep(1);
 }
