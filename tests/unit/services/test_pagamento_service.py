@@ -10,11 +10,12 @@ from tests.resouces.database.pagamento_model import PAGAMENTO_CRIADO_MODEL, PAGA
 
 def test_pagamento_service_create_pagamento_then_retur_pagamento_entity():
     # arrange
+    orders = Mock()
     payload = Mock(PagamentoPayloadSchema)
     payload.model_dump.return_value = PAGAMENTO_CRIADO_PAYLOAD
     repository = Mock(PagamentoRepository)
     repository.save.return_value = PAGAMENTO_CRIADO_MODEL
-    service = PagamentoService(repository)
+    service = PagamentoService(repository, orders)
     # act
     result = service.create(payload)
     # assert
@@ -25,9 +26,10 @@ def test_pagamento_service_create_pagamento_then_retur_pagamento_entity():
 def test_pagamento_service_get_by_pedido_id_then_return_pagamento_entity():
     # arrange
     pedido_id = 1
+    orders = Mock()
     repository = Mock(PagamentoRepository)
     repository.get_by_pedido_id.return_value = PAGAMENTO_CRIADO_MODEL
-    service = PagamentoService(repository)
+    service = PagamentoService(repository, orders)
     # act
     result = service.get_by_pedido_id(pedido_id)
     # assert

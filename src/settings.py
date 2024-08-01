@@ -16,7 +16,7 @@ class Env(str, Enum):
 
 
 def execution_environment(env: Env) -> bool:
-    return get_settings().application_settings.environment == env.value
+    return get_settings().application_settings.environment.value == env.value
 
 
 class ApplicationSettings(BaseSettings):
@@ -38,7 +38,7 @@ class DatabaseSettings(BaseSettings):
 
     @property
     def unittest_sync_uri(self) -> str:
-        return 'sqlite:///unittest.db'
+        return 'sqlite:///.target/unittest.db'
 
     @property
     def sync_uri(self) -> URL:
