@@ -14,7 +14,7 @@ class PagamentoPayloadSchema(BaseModel):
 
 
 class PagamentoResponseSchema(PagamentoPayloadSchema):
-    model_config = ConfigDict(from_attributes=True)
+    model_config = ConfigDict(from_attributes=True, extra='ignore')
 
     id: int
     # created_at: datetime
