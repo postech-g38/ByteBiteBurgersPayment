@@ -6,8 +6,8 @@ from src.enums import PagamentoStatus
 
 
 class PagamentoPayloadSchema(BaseModel):
-    pedido_id: int
-    usuario_id: int
+    pedido_id: int | str
+    usuario_id: int | str
     valor: float
     metodo: str
     status: PagamentoStatus = PagamentoStatus.CRIADO.value
