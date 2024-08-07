@@ -2,14 +2,16 @@ from datetime import datetime
 
 from pydantic import BaseModel, ConfigDict
 
-from src.enums import PagamentoStatus
+from src.enums import PagamentoStatus, PagamentoMethod
 
 
 class PagamentoPayloadSchema(BaseModel):
-    pedido_id: int | str
-    usuario_id: int | str
+    model_config = ConfigDict(use_enum_values=True)
+
+    pedido_id: int
+    usuario_id: int
     valor: float
-    metodo: str
+    metodo: PagamentoMethod
     status: PagamentoStatus = PagamentoStatus.CRIADO.value
 
 

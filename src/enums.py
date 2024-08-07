@@ -1,7 +1,7 @@
 from enum import Enum
 
 
-class PagamentoStatus(str, Enum):
+class PagamentoStatus(Enum):
     CRIADO = 'criado'
     APROVADO = 'aprovado'
     NEGADO = 'negado'

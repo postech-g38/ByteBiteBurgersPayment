@@ -19,6 +19,7 @@ services:
     depends_on:
       - database
       - localstack
+      - migrations
     healthcheck:
       test: curl -X GET http://localhost:8000/healthcheck || exit 1
       interval: 3s

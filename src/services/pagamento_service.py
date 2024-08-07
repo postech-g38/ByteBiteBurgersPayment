@@ -32,8 +32,11 @@ class PagamentoService(BaseService):
     
     @try_except
     def update_status(self, payload: PagamentoWebhookSchema) -> Dict[str, Any]:
-        pagamento = self._repository.search_by_id(payload.pagamento_id)
+        pagamento: PagamentoModel = self._repository.search_by_id(payload.pagamento_id)
         self._repository.update(payload.pagamento_id, {'status': payload.pagamento_status})
-        self._orders.update_pedido(pagamento.pedido_id, {'status': payload.pagamento_status})
+        self._orders.update_pedido(pagamento.pedido_id, {
+            'status': payload.pagamento_status,
+            'pagamento_id': pagamento.id
+        })
         return PagamentoResponseSchema.model_validate(pagamento).model_dump()
     
