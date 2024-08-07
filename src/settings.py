@@ -16,7 +16,7 @@ class Env(str, Enum):
 
 
 def execution_environment(env: Env) -> bool:
-    return get_settings().application_settings.environment == env.value
+    return get_settings().application_settings.environment.value == env.value
 
 
 class ApplicationSettings(BaseSettings):
@@ -38,7 +38,7 @@ class DatabaseSettings(BaseSettings):
 
     @property
     def unittest_sync_uri(self) -> str:
-        return 'sqlite:///unittest.db'
+        return 'sqlite:///.target/unittest.db'
 
     @property
     def sync_uri(self) -> URL:
@@ -55,9 +55,19 @@ class DatabaseSettings(BaseSettings):
         )
 
 
+class QueueSettings(BaseSettings):
+    queue_url: str = Field(..., validation_alias='QUEUE_URL')
+
+
+class ApiByteBiteBurguers(BaseSettings):
+    byte_bite_burguers_host: str = Field(..., validation_alias='API_BYTE_BITE_BURGUERS_HOST')
+
+
 class GeneralSettings(BaseSettings):
+    api_byte_bite_burguer: ClassVar = ApiByteBiteBurguers()
     application_settings: ClassVar = ApplicationSettings()
     database_settings: ClassVar = DatabaseSettings()
+    queue_settings: ClassVar = QueueSettings()
 
 
 @lru_cache
